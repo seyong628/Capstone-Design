@@ -5,7 +5,7 @@
 ```mermaid
 flowchart TD
     A[기상 센서<br/>온도/기압/습도] --> B
-    B[과거 풍속 데이터\n시계열] --> C
+    B[과거 풍속 데이터<br/>시계열] --> C
     C[풍속 예측 AI<br/>LSTM / Transformer] --> D[예측 풍속값]
     D --> E
     F[실측 풍속 센서] --> E
