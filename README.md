@@ -4,7 +4,7 @@
 # 풍력 AI 이중 제어 시스템 블럭도
 ```mermaid
 flowchart TD
-    A[풍력발전기 SCADA 데이터] --> C
+    A[과거 풍력발전기 SCADA 데이터] --> C
     F[실측 풍속 센서] -->|실측 오차 보정| C
     F -->E
     C[풍속 예측 AI] --> D[예측 풍속값]
