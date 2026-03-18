@@ -103,3 +103,4 @@ $$J = \sum_{k=1}^{N} \left[ Q_1(\omega_r - \omega_{ref})^2 + Q_2(P - P_{rated})^
 
 - Venkateswaran et al., *"Stability augmentation of pitch angle control for PMSG-based WTS with pitch actuator uncertainty via L1 adaptive scheme"*, International Journal of Electrical Power and Energy Systems, 2023.
 - Wu, B. & Yaramasu, V., *"Model Predictive Control of Wind Energy Conversion Systems"*, IEEE Press, 2017.
+- Wu, B., Lang, Y., Zargari, N. & Kouro, S., *"Power Conversion and Control of Wind Energy Systems"*, IEEE Press / John Wiley & Sons, 2011.
