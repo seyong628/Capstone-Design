@@ -1,7 +1,7 @@
 # 🌬️ MPC 기반 풍력발전기 피치각 제어 시스템
 
 > **MPPT 효율 최대화 + 피로하중(DEL) 최소화를 동시에 달성하는 MPC 피치각 제어기**  
-> 20MW PMSG 기반 풍력발전기 · Python 시뮬레이션 · 졸업 캡스톤 디자인
+> 20MW PMSG 기반 풍력발전기 · Python 시뮬레이션 ·  캡스톤 디자인
 
 <br>
 
@@ -41,7 +41,7 @@
 
 ```mermaid
 flowchart TD
-    SCADA["📡 SCADA 데이터 (실제 측정)\n8호기 · 10분 단위 · 1년치"]
+    SCADA["📡 SCADA 데이터 "]
 
     subgraph PY["🖥️ VSCode · Python 환경"]
         PRE["🔧 데이터 전처리\n이상치 제거 · 선형 보간 · 시간순 정렬"]
