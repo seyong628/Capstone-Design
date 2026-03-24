@@ -15,30 +15,52 @@
 
 ## 🧩 시스템 아키텍처
 
-```
-[입력 계층]
-  웹캠 (손 제스처)              DHT11 온도 센서
-       │                               │
-       ▼                               ▼
-[처리 계층]
-  MediaPipe + Python              Arduino (C/C++)
-  제스처 인식 + 명령 변환          센서 읽기 + LED 제어
-       │                               │
-       └──────────────┬────────────────┘
-                      ▼
-[통신 계층]
-        MQTT 브로커 (Raspberry Pi / Mosquitto)
-                      │
-           ┌──────────┴──────────┐
-           ▼                     ▼
-[출력 계층]
-   Three.js 웹 대시보드        Arduino
-   3D 가상 공장 시각화          LED 깜빡임 출력
-           │                     │
-           └──────────┬───────────┘
-                      ▼
-[동기화 계층]
-        가상 상태 = 현실 상태 (항상 일치)
+```mermaid
+flowchart TD
+    A["📷 웹캠\n손 제스처 입력"]
+    B["🌡️ DHT11 온도 센서\n기계 이상 감지"]
+
+    C["🐍 MediaPipe + Python\n제스처 인식 + 명령 변환"]
+    D["⚙️ Arduino C/C++\n센서 읽기 + LED 제어"]
+
+    E["📡 MQTT 브로커\nRaspberry Pi / Mosquitto"]
+
+    F["🌐 Three.js 웹 대시보드\n3D 가상 공장 시각화"]
+    G["💡 Arduino\nLED 깜빡임 출력"]
+
+    H["🔄 동기화 상태\n가상 = 현실 항상 일치"]
+
+    subgraph INPUT["입력 계층"]
+        A
+        B
+    end
+
+    subgraph PROCESS["처리 계층"]
+        C
+        D
+    end
+
+    subgraph COMM["통신 계층"]
+        E
+    end
+
+    subgraph OUTPUT["출력 계층"]
+        F
+        G
+    end
+
+    subgraph SYNC["동기화 계층"]
+        H
+    end
+
+    A --> C
+    B --> D
+    C -->|MQTT publish| E
+    D -->|MQTT publish| E
+    E -->|MQTT subscribe| F
+    E -->|MQTT subscribe| G
+    F --> H
+    G --> H
 ```
 
 ---
