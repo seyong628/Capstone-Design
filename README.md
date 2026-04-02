@@ -1,24 +1,29 @@
-# 🏭 제스처 기반 스마트팩토리 디지털 트윈 시스템
+# 🏭 제스처 기반 스마트 팩토리 디지털 트윈
 
-> 손 제스처로 가상 공장 환경을 제어하고, 실제 센서 데이터를 실시간으로 동기화하는 디지털 트윈 시스템
+> 손 제스처만으로 3D 가상 공장을 제어하고, 시뮬레이터 센서 데이터를 실시간으로 동기화하는 캡스톤 디자인 프로젝트
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)
-![Unity](https://img.shields.io/badge/Unity-6-000000?style=flat-square&logo=unity&logoColor=white)
-![Arduino](https://img.shields.io/badge/Arduino-RP2040-00979D?style=flat-square&logo=arduino&logoColor=white)
-![MQTT](https://img.shields.io/badge/MQTT-Mosquitto-660066?style=flat-square&logo=eclipsemosquitto&logoColor=white)
-![InfluxDB](https://img.shields.io/badge/InfluxDB-2.x-22ADF6?style=flat-square&logo=influxdb&logoColor=white)
-![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?style=flat-square&logo=grafana&logoColor=white)
-![MediaPipe](https://img.shields.io/badge/MediaPipe-HandTracking-0097A7?style=flat-square&logo=google&logoColor=white)
+<p align="center">
+  <img src="https://img.shields.io/badge/Unity-6000.4-000000?style=for-the-badge&logo=unity&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MediaPipe-HandTracking-0097A7?style=for-the-badge&logo=google&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MQTT-Mosquitto-660066?style=for-the-badge&logo=eclipsemosquitto&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Raspberry_Pi-4-C51A4A?style=for-the-badge&logo=raspberrypi&logoColor=white"/>
+  <img src="https://img.shields.io/badge/InfluxDB-2.x-22ADF6?style=for-the-badge&logo=influxdb&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Grafana-Dashboard-F46800?style=for-the-badge&logo=grafana&logoColor=white"/>
+  <img src="https://img.shields.io/badge/URP-Unity_Render_Pipeline-FF6B00?style=for-the-badge&logo=unity&logoColor=white"/>
+</p>
 
 ---
 
 ## 📌 프로젝트 개요
 
-본 프로젝트는 **MediaPipe 기반 손 제스처 인식**과 **MQTT 통신 프로토콜**을 활용하여 Unity 6 3D 가상 공장과 실제 하드웨어를 실시간으로 동기화하는 **스마트 팩토리 디지털 트윈 시스템**입니다.
+본 프로젝트는 **MediaPipe 기반 손 제스처 인식**과 **MQTT 통신 프로토콜**을 활용하여 Unity 6 3D 가상 공장과 Python 센서 시뮬레이터를 실시간으로 동기화하는 **스마트 팩토리 디지털 트윈 시스템**입니다.
 
-- DHT11 온도·습도 센서가 기계 이상을 감지하면 Unity 가상 공장의 해당 기계가 빨간색 경고 상태로 전환됩니다.
-- 사용자는 손 제스처만으로 가상 공장 내 기계를 선택하여 실시간 온도·습도·상태를 확인할 수 있습니다.
-- Raspberry Pi의 InfluxDB와 Grafana로 센서 데이터를 실시간 저장 및 시각화합니다.
+- 웹캠으로 손 제스처를 인식하여 가상 공장 내 기계를 선택하고 제어합니다.
+- Unity 3D 공장 안에서 3인칭 시점으로 직접 이동하며 기계 상태를 확인합니다.
+- Python 센서 시뮬레이터가 온습도 데이터를 MQTT로 발행하여 Unity에 실시간 반영합니다.
+- 온도·습도 임계값 초과 시 Point Light 깜빡임과 World Space UI 패널로 경보를 발생시킵니다.
+- Grafana 모니터링 대시보드 연동을 통해 데이터를 시각화할 예정입니다.
 
 ---
 
@@ -27,73 +32,77 @@
 ```mermaid
 flowchart TD
     A["📷 웹캠\n손 제스처 입력"]
-    B["🌡️ DHT11 센서 x3\n온습도 측정"]
+    B["🌡️ Python 센서 시뮬레이터\n온습도 데이터 생성"]
 
     C["🐍 Python / MediaPipe\n제스처 인식 + MQTT 발행"]
-    D["⚙️ Arduino Nano RP2040\nWiFi MQTT 발행/수신"]
+    E["🍓 Raspberry Pi 4\nMosquitto MQTT 브로커"]
 
-    E["📡 MQTT 브로커\nRaspberry Pi / Mosquitto"]
+    F["🎮 Unity 6\n3D 디지털 트윈\n3인칭 캐릭터 이동"]
+    G["💡 Point Light 경보\n임계값 초과 시 깜빡임"]
+    H["🖥️ World Space UI\n온도 / 습도 / 경보 패널"]
+    I["📊 InfluxDB + Grafana\n모니터링 대시보드 (예정)"]
 
-    F["🎮 Unity 6\n3D 디지털 트윈"]
-    G["💡 LED x3\n이상 상태 표시"]
-    H["🗄️ InfluxDB + Grafana\n데이터 저장 / 시각화"]
-
-    I["🔄 동기화\n가상 = 현실 항상 일치"]
+    J["🔄 동기화\n가상 = 시뮬레이터 항상 일치"]
 
     subgraph INPUT["입력 계층"]
         A
         B
     end
+
     subgraph PROCESS["처리 계층"]
         C
-        D
     end
-    subgraph COMM["통신 계층"]
+
+    subgraph COMM["통신 계층 — MQTT"]
         E
     end
+
     subgraph OUTPUT["출력 계층"]
         F
         G
         H
-    end
-    subgraph SYNC["동기화 계층"]
         I
     end
 
+    subgraph SYNC["동기화"]
+        J
+    end
+
     A --> C
-    B --> D
-    C -->|MQTT publish| E
-    D -->|WiFi MQTT publish| E
+    B -->|MQTT publish\nfactory/machine/status| E
+    C -->|MQTT publish\nfactory/control| E
     E -->|MQTT subscribe| F
-    E -->|MQTT subscribe| G
-    E -->|데이터 저장| H
-    F --> I
-    G --> I
+    E -->|데이터 저장 예정| I
+    F --> G
+    F --> H
+    G --> J
+    H --> J
 ```
 
 ---
 
-## 🔄 데이터 흐름
+## 🖐️ 제스처 명령
 
-### 시나리오 A — 이상 감지
-```
-DHT11 온도 임계값 초과
-  → RP2040 LED 깜빡임
-  → WiFi MQTT publish (factory/machine/1~3/status)
-  → Unity 해당 기계 빨간색 점멸
-  → InfluxDB 데이터 저장 → Grafana 대시보드 반영
-  → 사용자 open_hand 제스처로 기계 선택
-  → Unity UI 패널 — 온도 / 습도 / 이상 상태 표시
-```
+| 제스처 | 명령 | 동작 |
+|--------|------|------|
+| ✋ 손 펼치기 | `open_hand` | 근처 머신 선택 + 상태 패널 표시 |
+| ✌️ 두 손가락 (V자) | `two_fingers` | 선택된 머신 제어 실행 |
+| ✊ 주먹 | `fist` | 선택 취소 / 초기화 |
 
-### 시나리오 B — 제스처 제어
-```
-손 제스처 인식 (open_hand / two_fingers / fist)
-  → MediaPipe 명령 변환
-  → MQTT publish (factory/control)
-  → Unity 가상 기계 상태 업데이트
-  → RP2040 하드웨어 동시 반응
-```
+---
+
+## 🎮 Unity 구현 내용
+
+| 기능 | 설명 |
+|------|------|
+| 공장 씬 | Factory Training 에셋 기반 URP 공장 환경 |
+| 3인칭 이동 | WASD 키보드 이동 |
+| 카메라 | 마우스 좌우 회전 + 스크롤 줌 + 장애물 자동 감지 |
+| 캐릭터 | 인간형 캐릭터 모델 적용 |
+| 머신 상태 시각화 | Point Light 깜빡임 (정상: 파랑 / 경보: 빨강) |
+| 머신 선택 | 근접 거리 감지 + open_hand 제스처 |
+| UI 패널 | World Space UI — 온도 / 습도 / 상태 실시간 표시 |
+| MQTT 수신 | 실시간 메시지 수신 즉시 씬 반영 |
 
 ---
 
@@ -101,32 +110,11 @@ DHT11 온도 임계값 초과
 
 | 토픽 | 방향 | 설명 |
 |------|------|------|
-| `factory/machine/1/status` | RP2040 → All | 기계 1 온습도 + 이상 여부 |
-| `factory/machine/2/status` | RP2040 → All | 기계 2 온습도 + 이상 여부 |
-| `factory/machine/3/status` | RP2040 → All | 기계 3 온습도 + 이상 여부 |
-| `factory/machine/alert` | RP2040 → All | 이상 감지 경보 |
+| `factory/machine/1/status` | 시뮬레이터 → All | 기계 1 온습도 + 이상 여부 |
+| `factory/machine/2/status` | 시뮬레이터 → All | 기계 2 온습도 + 이상 여부 |
+| `factory/machine/3/status` | 시뮬레이터 → All | 기계 3 온습도 + 이상 여부 |
+| `factory/machine/alert` | 시뮬레이터 → All | 임계값 초과 경보 |
 | `factory/control` | Python → All | 제스처 명령 전송 |
-
----
-
-## 🖐️ 제스처 명령
-
-| 제스처 | 명령어 | 동작 |
-|--------|--------|------|
-| ✋ 손 펴기 | `open_hand` | 화면을 3구역으로 나눠 손목 X 위치로 머신 선택 |
-| ✌️ 두 손가락 | `two_fingers` | 선택된 머신 제어 실행 (주황 번쩍임) |
-| ✊ 주먹 | `fist` | 선택 취소 / 초기화 |
-
----
-
-## 🎮 Unity 기능
-
-| 기능 | 설명 |
-|------|------|
-| 머신 상태 색상 | 정상 → 파랑, 경고 → 초록, 이상 → 빨강 점멸 |
-| 카메라 포커싱 | 머신 선택 시 스무스 카메라 이동 |
-| UI 패널 | 화면 우측 상단 — 온도 / 습도 / 상태 실시간 표시 |
-| 실시간 동기화 | MQTT 메시지 수신 즉시 상태 반영 |
 
 ---
 
@@ -135,59 +123,38 @@ DHT11 온도 임계값 초과
 | 분류 | 기술 |
 |------|------|
 | 제스처 인식 | Python, MediaPipe, OpenCV, paho-mqtt |
+| 센서 시뮬레이터 | Python, paho-mqtt |
 | 통신 | MQTT (Mosquitto) |
-| 데이터 저장/시각화 | InfluxDB, Grafana |
 | 중앙 제어 | Raspberry Pi 4 |
-| 하드웨어 | Arduino Nano RP2040 Connect, DHT11 x3, LED x3, 220Ω 저항 x3 |
-| 가상 환경 | Unity 6, C# |
+| 가상 환경 | Unity 6, C#, URP |
+| 모니터링 | InfluxDB + Grafana (예정) |
 
 ---
 
-## 📦 하드웨어 구성
+## 💻 시스템 구성
 
-| 장비 | 용도 |
+| 장치 | 역할 |
 |------|------|
-| Raspberry Pi 4 | MQTT 브로커 + InfluxDB + Grafana |
-| Arduino Nano RP2040 Connect | 센서 읽기 + LED 제어 + WiFi MQTT |
-| DHT11 온습도 센서 x3 | 기계 이상 감지 |
-| LED x3 | 이상 상태 시각적 표시 |
+| PC | MediaPipe 제스처 인식 + Python 센서 시뮬레이터 + Unity 실행 |
+| Raspberry Pi 4 | Mosquitto MQTT 브로커 |
 | 웹캠 (Cosy FullHD) | 손 제스처 입력 |
 
+
 ---
 
-## 🔌 핀 배선
+## ✅ 진행 현황
 
-| 부품 | 연결 |
+| 항목 | 상태 |
 |------|------|
-| DHT11 #1 | (+)→3.3V, (-)→GND, (S)→D2 |
-| DHT11 #2 | (+)→3.3V, (-)→GND, (S)→D3 |
-| DHT11 #3 | (+)→3.3V, (-)→GND, (S)→D4 |
-| LED #1 | D10 → 220Ω → LED+ / LED- → GND |
-| LED #2 | D11 → 220Ω → LED+ / LED- → GND |
-| LED #3 | D12 → 220Ω → LED+ / LED- → GND |
-
-
-
----
-
-## 🚀 실행 순서
-
-```
-1️⃣  Raspberry Pi — Mosquitto 브로커 실행 확인
-    sudo systemctl status mosquitto
-
-2️⃣  Arduino Nano RP2040 — 전원 연결 (자동 실행)
-    WiFi 연결 후 MQTT 브로커에 자동 접속
-
-3️⃣  Python — 제스처 인식 실행
-    python python/gesture_recognition.py
-
-4️⃣  Unity — SmartFactory 씬 실행
-    Play 버튼 클릭 → MQTT 연결 → 실시간 동기화 시작
-
-5️⃣  Grafana — 대시보드 확인
-    브라우저 → http://[라파 IP]:3000
-```
+| Unity 공장 씬 구성 | ✅ 완료 |
+| 3인칭 캐릭터 이동 + 카메라 | ✅ 완료 |
+| 인간형 캐릭터 모델 적용 | ✅ 완료 |
+| Python 제스처 인식 | ✅ 완료 |
+| Python 센서 시뮬레이터 | ✅ 완료 |
+| MQTT 실시간 수신 + 머신 시각화 | ✅ 완료 |
+| Point Light 경보 시스템 | ✅ 완료 |
+| World Space UI 패널 | ✅ 완료 |
+| Grafana 모니터링 연동 | 🔄 예정 |
 
 ---
 
@@ -199,4 +166,4 @@ DHT11 온도 임계값 초과
 
 ---
 
-> 임베디드 소프트웨어학과 졸업작품 | 2025
+> 임베디드 소프트웨어학과 졸업 캡스톤 디자인 | 2025
