@@ -243,6 +243,15 @@ smartfactory_main 씬 실행
 
 ---
 
+## 🎬 시연 영상
+
+<!-- YouTube 업로드 후 아래 YOUR_VIDEO_ID 부분을 실제 영상 ID로 교체하세요 -->
+<!-- 예시: https://youtu.be/abc123xyz 이면 YOUR_VIDEO_ID = abc123xyz -->
+
+[![시연 영상](https://img.youtube.com/vi/5WLTH0Wkksw/0.jpg)](https://youtu.be/5WLTH0Wkksw)
+
+---
+
 ## 👨‍💻 개발자
 
 | 이름 | 역할 |
